@@ -1,4 +1,4 @@
-import GenerateInvoiceUseCase from "./genarate-invoce.usecase"
+import GenerateInvoiceUseCase from "./generate-invoce.usecase"
 
 const MockRepository = () => {
   return {
