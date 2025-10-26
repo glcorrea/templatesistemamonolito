@@ -1,23 +1,34 @@
 import ValueObject from "./value-object-interface"
 
-export default class Address implements ValueObject {
-  _street: string = ""
-  _number: string = ""
-  _complement: string = ""
-  _city: string = ""
-  _state: string = ""
-  _zipCode: string = ""
+type AddressProps = {
+  street: string;
+  number: string;
+  complement: string;
+  city: string; 
+  state: string; 
+  zipCode: string;
+};
+  
 
-  constructor(street: string, number: string, complement: string, city: string, state: string, zipCode: string) {
-    this._street = street
-    this._number = number
-    this._complement = complement
-    this._city = city
-    this._state = state
-    this._zipCode = zipCode
+export default class Address implements ValueObject {
+  
+  private _street: string = ""
+  private _number: string = ""
+  private _complement: string = ""
+  private _city: string = ""
+  private _state: string = ""
+  private _zipCode: string = ""
+
+  constructor(props: AddressProps) {
+    this._street = props.street
+    this._number = props.number
+    this._complement = props.complement
+    this._city = props.city
+    this._state = props.state
+    this._zipCode = props.zipCode
 
   }
-
+    
   get street(): string {
     return this._street
   }
