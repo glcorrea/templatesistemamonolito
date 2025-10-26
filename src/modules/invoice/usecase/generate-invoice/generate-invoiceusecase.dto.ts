@@ -1,5 +1,5 @@
 
-export interface GenarateInvoiceInputDto{
+export interface GenerateInvoiceInputDto{
     id?: string
     name: string
     document: string
@@ -12,7 +12,7 @@ export interface GenarateInvoiceInputDto{
         zipCode: string
     }
     items: {
-        Id?: string
+        id?: string
         name: string
         price: number
     }[]; 
@@ -20,8 +20,8 @@ export interface GenarateInvoiceInputDto{
 }
 
 
-export interface GenarateInvoiceOutputDto{
-    id: string
+export interface GenerateInvoiceOutputDto{
+    id: string;
     name: string;
     document: string;
     street: string;
@@ -31,10 +31,12 @@ export interface GenarateInvoiceOutputDto{
     state: string; 
     zipCode: string;
     items: {
-        Id?: string;
+        id?: string;
         name: string;
         price: number;
     }[];
     total: number; 
+    createdAt: Date;
+    updatedAt: Date;
 
 }

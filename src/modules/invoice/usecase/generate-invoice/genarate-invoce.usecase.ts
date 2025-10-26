@@ -1,10 +1,11 @@
 import Address from "../../../@shared/domain/value-object/address.value-object"
 import Id from "../../../@shared/domain/value-object/id.value-object"
 import Invoice from "../../domain/invoice.entity"
+import InvoiceItem from "../../domain/invoice-item.entity"
 import InvoiceGateway from "../../gateway/invoice.gateway"
-import { GenarateInvoiceInputDto } from "./generate-invoiceusecase.dto"
+import { GenerateInvoiceInputDto, GenerateInvoiceOutputDto } from "./generate-invoiceusecase.dto"
 
-export default class GenarateInvoceUseCase {
+export default class GenerateInvoiceUseCase {
 
     private _invoiceRepository: InvoiceGateway
 
@@ -12,7 +13,7 @@ export default class GenarateInvoceUseCase {
         this._invoiceRepository = invoiceRepository
     }
 
-    async execute(input: GenarateInvoiceInputDto): Promise<GenarateInvoiceOutputDto> {
+    async execute(input: GenerateInvoiceInputDto): Promise<GenerateInvoiceOutputDto> {
 
         
         const address = new Address({
@@ -25,17 +26,40 @@ export default class GenarateInvoceUseCase {
         })
     
         const items =   input.items.map(item => new InvoiceItem({
-
-        })
-        const propos = {
-            id: new Id(input.id) || new Id(),
+            id: item.id ? new Id(item.id) : new Id(),
+            name: item.name,
+            price: item.price
+        }))
+        
+        const invoice = new Invoice({
+            id: input.id ? new Id(input.id) : new Id(),
             name: input.name,  
             document: input.document,
-            
+            address: address,   
+            items: items,
+        })
+        
+        await this._invoiceRepository.add(invoice)
 
+        return{
+            id: invoice.id.id,
+            name: invoice.name,
+            document: invoice.document,
+            street: invoice.address.street,
+            number: invoice.address.number,
+            complement: invoice.address.complement,
+            city: invoice.address.city,
+            state: invoice.address.state,
+            zipCode: invoice.address.zipCode,
+            items: invoice.items.map(item => ({
+                id: item.id.id,
+                name: item.name,
+                price: item.price,
+            })),
+            total: invoice.total,
+            createdAt: invoice.createdAt,
+            updatedAt: invoice.updatedAt,
         }
-        
-        
 
     } 
 
