@@ -1,4 +1,4 @@
-import { Sequelize, UpdatedAt } from "sequelize-typescript";
+import { Sequelize } from "sequelize-typescript";
 import Id from "../../@shared/domain/value-object/id.value-object";
 import Address from "../../@shared/domain/value-object/address.value-object";
 import { InvoiceModel } from "./invoice.model";

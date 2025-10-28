@@ -7,7 +7,7 @@ export interface FindInvoiceUseCaseOutputDto {
     id: string
     name: string
     document: string
-    Address: {
+    address: {
         street: string
         number: string
         complement: string
@@ -16,7 +16,7 @@ export interface FindInvoiceUseCaseOutputDto {
         zipCode: string
     }
     items: {
-        Id: string
+        id: string
         name: string
         price: number
     }[];

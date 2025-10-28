@@ -58,15 +58,15 @@ describe("find a invoice usecase unit test", () => {
     expect(result.name).toBe(mockInvoice.name);
     expect(result.document).toBe(mockInvoice.document);
     expect(result.total).toBe(250.00);
-    expect(result.Address.street).toBe(invoiceAddress.street);
-    expect(result.Address.city).toBe(invoiceAddress.city);
-    expect(result.Address.state).toBe(invoiceAddress.state);
-    expect(result.Address.zipCode).toBe(invoiceAddress.zipCode);
+    expect(result.address.street).toBe(invoiceAddress.street);
+    expect(result.address.city).toBe(invoiceAddress.city);
+    expect(result.address.state).toBe(invoiceAddress.state);
+    expect(result.address.zipCode).toBe(invoiceAddress.zipCode);
     expect(result.items.length).toBe(2);
-    expect(result.items[0].Id).toBe("11");
+    expect(result.items[0].id).toBe("11");
     expect(result.items[0].name).toBe(invoiceItem1.name);
     expect(result.items[0].price).toBe(invoiceItem1.price);
-    expect(result.items[1].Id).toBe("12");
+    expect(result.items[1].id).toBe("12");
     expect(result.items[1].name).toBe(invoiceItem2.name);
     expect(result.items[1].price).toBe(invoiceItem2.price);
     
