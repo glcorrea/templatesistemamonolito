@@ -78,11 +78,17 @@ describe("InvoiceRepository test", () => {
   it("should find a invoice by id", async () => {
     
     const invoiceRepository = new InvoiceRepository();
-    const createdAt = new Date();
-    const updatedAt = new Date();
+    
+    const formatDate = (date: Date ): Date => {
+      return new Date(date.getFullYear(), date.getMonth(), date.getDate(),
+             date.getHours(), date.getMinutes(), date.getSeconds(), 0);
+    };
+    
+    const createdAtFormated = formatDate(new Date());
+    const updatedAtFormated = formatDate(new Date());
 
 
-    InvoiceModel.create({
+    await InvoiceModel.create({
       id: "2",
       name: "Cliente Teste",
       document: "1234-5678",
@@ -92,8 +98,8 @@ describe("InvoiceRepository test", () => {
       city: "São Paulo",
       state: "SP",
       zipCode: "22222-222",
-      createdAt: createdAt,
-      updatedAt: updatedAt,
+      createdAt: createdAtFormated,
+      updatedAt:  updatedAtFormated,
       items: [
         { id: "111",
           name: "Produto X",
@@ -111,6 +117,12 @@ describe("InvoiceRepository test", () => {
 
     const invoiceResult = await invoiceRepository.find("2");
 
+    const receivedCreatedAt = formatDate(invoiceResult.createdAt).getTime();
+    const expectedCreatedAtTime = createdAtFormated.getTime();
+    const receivedUpdatedAt = formatDate(invoiceResult.updatedAt).getTime();
+    const expectedUpdatedAtTime = updatedAtFormated.getTime();
+ 
+
     expect(invoiceResult.id.id).toEqual("2");
     expect(invoiceResult.name).toEqual("Cliente Teste");
     expect(invoiceResult.document).toEqual("1234-5678");
@@ -124,8 +136,8 @@ describe("InvoiceRepository test", () => {
     expect(invoiceResult.items[1].id.id).toBe("112");
     expect(invoiceResult.items[1].name).toBe("Produto Y");
     expect(invoiceResult.items[1].price).toBe(150.00);
-    expect(invoiceResult.createdAt).toEqual(createdAt);
-    expect(invoiceResult.updatedAt).toEqual(updatedAt);
+    expect(receivedCreatedAt).toEqual(expectedCreatedAtTime);
+    expect(receivedUpdatedAt).toEqual(expectedUpdatedAtTime);
   })
 
     
